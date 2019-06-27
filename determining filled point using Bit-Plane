@@ -1,0 +1,112 @@
+row=400;
+col=500;
+page1_r=zeros(row,col);
+page2_r=zeros(row,col);
+page3_r=zeros(row,col);
+page4_r=zeros(row,col);
+page5_r=zeros(row,col);
+page6_r=zeros(row,col);
+page7_r=zeros(row,col);
+page8_r=zeros(row,col);
+%%-
+page1_g=zeros(row,col);
+page2_g=zeros(row,col);
+page3_g=zeros(row,col);
+page4_g=zeros(row,col);
+page5_g=zeros(row,col);
+page6_g=zeros(row,col);
+page7_g=zeros(row,col);
+page8_g=zeros(row,col);
+%%-
+page1_b=zeros(row,col);
+page2_b=zeros(row,col);
+page3_b=zeros(row,col);
+page4_b=zeros(row,col);
+page5_b=zeros(row,col);
+page6_b=zeros(row,col);
+page7_b=zeros(row,col);
+page8_b=zeros(row,col);
+%%-
+for i=1:row
+    for j=1:col       
+        r=original(i,j,1);
+        g=original(i,j,2);
+        b=original(i,j,3);
+        temp_r=dec2bin(r,8);
+        temp_g=dec2bin(g,8);
+        temp_b=dec2bin(b,8);
+        page1_r(i,j)=str2num(temp_r(8));
+        page2_r(i,j)=str2num(temp_r(7));
+        page3_r(i,j)=str2num(temp_r(6));
+        page4_r(i,j)=str2num(temp_r(5));
+        page5_r(i,j)=str2num(temp_r(4));
+        page6_r(i,j)=str2num(temp_r(3));
+        page7_r(i,j)=str2num(temp_r(2));
+        page8_r(i,j)=str2num(temp_r(1));
+        %%-
+        page1_g(i,j)=str2num(temp_g(8));
+        page2_g(i,j)=str2num(temp_g(7));
+        page3_g(i,j)=str2num(temp_g(6));
+        page4_g(i,j)=str2num(temp_g(5));
+        page5_g(i,j)=str2num(temp_g(4));
+        page6_g(i,j)=str2num(temp_g(3));
+        page7_g(i,j)=str2num(temp_g(2));
+        page8_g(i,j)=str2num(temp_g(1));
+        %%-
+        page1_b(i,j)=str2num(temp_b(8));
+        page2_b(i,j)=str2num(temp_b(7));
+        page3_b(i,j)=str2num(temp_b(6));
+        page4_b(i,j)=str2num(temp_b(5));
+        page5_b(i,j)=str2num(temp_b(4));
+        page6_b(i,j)=str2num(temp_b(3));
+        page7_b(i,j)=str2num(temp_b(2));
+        page8_b(i,j)=str2num(temp_b(1));
+        %%start operate_bit_plane
+        %op=ceil(rand());
+        %if (op==0)
+           if (page7_r(i,j)==0)
+               page7_r(i,j)=1;
+           else
+               page7_r(i,j)=0;
+           end
+           if (page7_g(i,j)==0)
+               page7_g(i,j)=1;
+           else
+               page7_g(i,j)=0;
+           end
+           if (page7_b(i,j)==1)
+               page7_b(i,j)=0;
+           else
+               page7_b(i,j)=1;
+           end
+           if (page8_r(i,j)==0)
+               page8_r(i,j)=1;
+           else
+               page8_r(i,j)=0;
+           end
+           
+           if (page8_g(i,j)==1)
+               page8_g(i,j)=1;
+           else
+               page8_g(i,j)=0;
+           end
+           if (page8_b(i,j)==0)
+               page8_b(i,j)=1;
+           else
+               page8_b(i,j)=0;
+           end   
+    end
+end
+
+for i=1:row
+    for j=1:col
+        r_new=strcat(num2str(page8_r(i,j)),num2str(page7_r(i,j)),num2str(page6_r(i,j)),num2str(page5_r(i,j)),num2str(page4_r(i,j)),num2str(page3_r(i,j)),num2str(page2_r(i,j)),num2str(page1_r(i,j)));
+        g_new=strcat(num2str(page8_g(i,j)),num2str(page7_g(i,j)),num2str(page6_g(i,j)),num2str(page5_g(i,j)),num2str(page4_g(i,j)),num2str(page3_g(i,j)),num2str(page2_g(i,j)),num2str(page1_g(i,j)));
+        b_new=strcat(num2str(page8_b(i,j)),num2str(page7_b(i,j)),num2str(page6_b(i,j)),num2str(page5_b(i,j)),num2str(page4_b(i,j)),num2str(page3_b(i,j)),num2str(page2_b(i,j)),num2str(page1_b(i,j)));
+        page_end(i,j,1)=bin2dec(r_new);
+        page_end(i,j,2)=bin2dec(g_new);
+        page_end(i,j,3)=bin2dec(b_new);
+    end
+end
+page_end=uint8(page_end);
+imshow(page_end)
