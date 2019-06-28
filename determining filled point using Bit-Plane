@@ -1,5 +1,4 @@
-row=400;
-col=500;
+
 page1_r=zeros(row,col);
 page2_r=zeros(row,col);
 page3_r=zeros(row,col);
